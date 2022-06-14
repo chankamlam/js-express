@@ -1,3 +1,4 @@
+const http = require('http')
 var express={
 	mws:[]
 }
@@ -25,10 +26,13 @@ express.handle = (req,res,fn)=>{
 	}
 })
 express.listen = port=>{
-	var req ={}
-	var res = {}
-	express.handle(req,res,()=>{
-		console.log('--CORE--')
+	var port = 3000
+	const server = http.createServer((req,res)=>{
+		express.handle(req,res,()=>{
+			console.log('--CORE--')
+		})
+	}).listen(port,()=>{
+		console.log(`Server start on port ${port}.....`,3000)
 	})
 }
 module.exports = express
