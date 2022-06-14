@@ -1,3 +1,4 @@
+const debug = require('debug')('log')
 const http = require('http')
 var express={
 	mws:[]
@@ -13,12 +14,12 @@ express.handle = (req,res,fn)=>{
 	let len = express.mws.length
 	const income_path = req.url
 	const income_method = req.method.toLowerCase()
-	console.log(`income_request=>path:${income_path}|method:${income_method}`)
+	debug(`income_request => path : ${income_path} , method : ${income_method}`)
 	const next = ()=>{
 		if(idx<len){
 			let mw = express.mws[idx++]
 			if(mw.path==null||(mw.path==income_path&&mw.method==income_method)){
-				mw.fn(req,res,next)
+				mw.fn(req,res,next);
 			}else{
 				next(req,res,next)
 			}

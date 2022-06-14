@@ -1,24 +1,22 @@
+const debug = require('debug')('log')
 const express = require('./express.js')
 const fn1 = (req,res,next)=>{
-	console.log('fn1 start...')
+	debug(`fn1...`)
 	next()
-	console.log('fn1 end...')
 }
 const fn2 = (req,res,next)=>{
-	console.log('fn2 start...')
+	debug(`fn2...`)
 	next()
-	console.log('fn2 end...')
 }
-express.use(fn1)
-express.use(fn2)
 express.get('/user',(req,res,next)=>{
-	console.log('get /user start...')
+	debug(`get /user`)
 	res.end('get /user')
-	console.log('get /user end...')
 })
 express.post('/user',(req,res,next)=>{
-	console.log('get /user start...')
+	debug(`post /user`)
 	res.end('post /user')
-	console.log('get /user end...')
 })
+
+express.use(fn1)
+express.use(fn2)
 express.listen(3000)
